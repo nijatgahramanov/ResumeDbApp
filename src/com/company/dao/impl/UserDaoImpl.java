@@ -60,7 +60,7 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
     }
 
     @Override
-    public boolean updataUser(User u) {
+    public boolean updateUser(User u) {
         try (Connection c = connect();) {
             PreparedStatement stmt = c.prepareStatement("update user set name=?,surname=?,email=?,phoneNumber=?  where id=?");
             stmt.setString(1, u.getName());
@@ -117,7 +117,7 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
                     "    c.name as birthplace " +
                     "from user u " +
                     "left join country n on u.nationality_id = n.id " +
-                    "left join country c on u.birthplace_id = c.id where id= " + userId);
+                    "left join country c on u.birthplace_id = c.id where u.id=" + userId);
             ResultSet rs = stmt.getResultSet();
 
             while (rs.next()) {
